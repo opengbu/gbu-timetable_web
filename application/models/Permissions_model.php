@@ -32,7 +32,7 @@ class Permissions_model extends CI_Model {
                 'Reset_password'
             );
             if (!in_array(ucfirst($this->router->fetch_class()), $allowed)) {
-                redirect('login' . "?redirect=" . current_url() . $_SERVER['QUERY_STRING']);
+                redirect($this->get_login_url() . "?redirect=". current_url() . $_SERVER['QUERY_STRING']);
                 die();
             }
         }
@@ -71,6 +71,11 @@ class Permissions_model extends CI_Model {
         'admin' => 'red',
         'superadmin' => 'red'
     );
+    
+    public function get_login_url()
+    {
+        return dirname(base_url()) . '/users/login';
+    }
 
     public function all_permisiions($type = NULL) {
         if ($type == NULL)
